@@ -1,20 +1,29 @@
-# Tteokbokki Frontend
+# 🍽️ Restaurant & Food Ordering App (Cocktails Cuisine)
 
-## Purpose
+A modern and responsive restaurant web application where users can browse food items, view details, and manage orders. Built using React with TypeScript for type safety and Redux Toolkit for state management.
 
-This project is a frontend application built to consume backend APIs
-and present data through a clean, reusable React-based UI.
-
-## Tech Stack
-
-- React 18
+## 🚀 Tech Stack
+- React
 - TypeScript
-- Vite
-- ESLint
+- Tailwind CSS
+- Redux Toolkit
 
-## Running Locally
+## ✨ Features
+- 📋 View all food items
+- 🔍 Search and filter dishes
+- 🛒 Add to cart functionality
+- 📦 Manage orders
+- 📱 Fully responsive design
+- ⚡ Fast and clean UI
+
+## 📁 Project Structure
+- Components-based architecture
+- Centralized state management using Redux Toolkit
+
+## 🛠️ Installation
 
 ```bash
+git clone <your-repo-link>
+cd your-project
 npm install
 npm run dev
-```
