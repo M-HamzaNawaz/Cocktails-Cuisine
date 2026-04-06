@@ -1,32 +1,15 @@
 import React from 'react';
-
-// ---------- Types ----------
-interface Category {
-  name: string;
-  count: number;
-}
-
-interface ProductCategory {
-  name: string;
-  count: number;
-  color: string;
-}
-
-interface Weight {
-  label: string;
-  count: number;
-}
-
-interface Tag {
-  label: string;
-  count: number;
-}
+import type {
+  ColoredFilterOption,
+  FilterOption,
+  LabelFilterOption,
+} from '../../config/productFilters';
 
 interface Props {
-  categories?: Category[];
-  productCategories?: ProductCategory[];
-  weights?: Weight[];
-  tags?: Tag[];
+  categories?: FilterOption[];
+  productCategories?: ColoredFilterOption[];
+  weights?: LabelFilterOption[];
+  tags?: LabelFilterOption[];
   selectedCategories?: string[];
   selectedWeights?: string[];
   selectedTags?: string[];
@@ -35,7 +18,7 @@ interface Props {
   toggleProductCategory?: (val: string) => void;
   toggleWeight?: (val: string) => void;
   toggleTag?: (val: string) => void;
-  setPriceRange?: React.Dispatch<React.SetStateAction<[number, number]>>;
+  setPriceRange?: (nextRange: [number, number]) => void;
 }
 
 // ---------- Component ----------
@@ -93,7 +76,7 @@ const ProductFilters: React.FC<Props> = ({
           max={500}
           value={priceRange[1]}
           onChange={(e) =>
-            setPriceRange && setPriceRange([0, parseInt(e.target.value)])
+            setPriceRange && setPriceRange([0, Number.parseInt(e.target.value, 10)])
           }
           className="w-full accent-red-500"
         />

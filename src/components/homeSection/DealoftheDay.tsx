@@ -84,7 +84,7 @@ const DealsOfTheDay: React.FC<DealsOfTheDayProps> = ({ deals }) => {
       rating: deal.rating,
       stock: 100,
     };
-    dispatch(addToCart(cartItem));
+    dispatch(addToCart({ product: cartItem }));
   };
 
   return (

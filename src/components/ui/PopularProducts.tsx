@@ -79,7 +79,7 @@ const PopularProductsSection: React.FC<PopularDeals> = ({ populars }) => {
       rating: popular.rating,
       stock: 100,
     };
-    dispatch(addToCart(cartItem));
+    dispatch(addToCart({ product: cartItem }));
   };
 
   return (

@@ -5,12 +5,16 @@ import type {
   // LoginCredentials,
   // SignupCredentials,
 } from './authTypes';
+import { STORAGE_KEYS } from '../../utils/constant';
+import { loadOptionalState } from '../../utils/storage';
 
-const initialState: AuthState = {
+const defaultState: AuthState = {
   user: null,
   isAuthenticated: false,
   loading: false,
 };
+
+const initialState = loadOptionalState<AuthState>(STORAGE_KEYS.USER_DATA) ?? defaultState;
 
 const authSlice = createSlice({
   name: 'auth',

@@ -1,10 +1,11 @@
 // ProductTabs.tsx
 import React, { useState } from 'react';
 
+const tabs = ['description', 'information', 'review'] as const;
+type Tab = (typeof tabs)[number];
+
 const ProductTabs: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<
-    'description' | 'information' | 'review'
-  >('description');
+  const [activeTab, setActiveTab] = useState<Tab>('description');
 
   const renderContent = () => {
     switch (activeTab) {
@@ -56,10 +57,10 @@ const ProductTabs: React.FC = () => {
     <div className="w-full max-w-3xl mx-auto">
       {/* Tabs */}
       <div className="flex border-b border-gray-300 mb-4">
-        {['description', 'information', 'review'].map((tab) => (
+        {tabs.map((tab) => (
           <button
             key={tab}
-            onClick={() => setActiveTab(tab as any)}
+            onClick={() => setActiveTab(tab)}
             className={`py-2 px-4 text-sm font-medium ${
               activeTab === tab
                 ? 'border-b-2 border-red-500 text-red-500'

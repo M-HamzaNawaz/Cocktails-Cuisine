@@ -1,13 +1,17 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { Product } from '../../types/product';
+import { STORAGE_KEYS } from '../../utils/constant';
+import { loadOptionalState } from '../../utils/storage';
 
 interface WishlistState {
   items: Product[];
 }
 
-const initialState: WishlistState = {
+const defaultState: WishlistState = {
   items: [],
 };
+const initialState =
+  loadOptionalState<WishlistState>(STORAGE_KEYS.WISHLIST) ?? defaultState;
 
 const wishlistSlice = createSlice({
   name: 'wishlist',
