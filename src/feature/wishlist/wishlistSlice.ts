@@ -10,8 +10,13 @@ interface WishlistState {
 const defaultState: WishlistState = {
   items: [],
 };
-const initialState =
-  loadOptionalState<WishlistState>(STORAGE_KEYS.WISHLIST) ?? defaultState;
+const storedWishlistState =
+  loadOptionalState<Partial<WishlistState>>(STORAGE_KEYS.WISHLIST);
+const initialState: WishlistState = {
+  items: Array.isArray(storedWishlistState?.items)
+    ? storedWishlistState.items
+    : defaultState.items,
+};
 
 const wishlistSlice = createSlice({
   name: 'wishlist',
