@@ -93,7 +93,7 @@ const DailyBestSells: React.FC = () => {
       rating: product.rating,
       stock: product.totalStock,
     };
-    dispatch(addToCart(cartItem));
+    dispatch(addToCart({ product: cartItem }));
   };
 
   const getBadgeColor = (badge: string) => {

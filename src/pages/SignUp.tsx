@@ -1,78 +1,63 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../app/hooks";
-import { signupSuccess } from "../feature/auth/authSlice";
-import Input from "../components/ui/Input";
-import Button from "../components/ui/Button";
-import Card from "../components/ui/Card";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../app/hooks';
+import Card from '../components/ui/Card';
+import Input from '../components/ui/Input';
+import Button from '../components/ui/Button';
+import { signupSuccess } from '../feature/auth/authSlice';
+import {
+  signupSchema,
+  type SignupFormData,
+} from '../feature/auth/authSchema';
 
-type FormData = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  address: string;
-  city: string;
-  postCode: string;
-  country: string;
-  regionState: string;
+const initialFormData: SignupFormData = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  phoneNumber: '',
+  address: '',
+  city: '',
+  postCode: '',
+  country: '',
+  regionState: '',
 };
 
 const Signup: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const [formData, setFormData] = useState<FormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    address: "",
-    city: "",
-    postCode: "",
-    country: "",
-    regionState: "",
-  });
-
+  const [formData, setFormData] = useState<SignupFormData>(initialFormData);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((p) => ({ ...p, [e.target.name]: e.target.value }));
-    setErrors((p) => ({ ...p, [e.target.name]: "" }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setErrors((prev) => ({ ...prev, [e.target.name]: '' }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const fieldErrors: Record<string, string> = {};
-    const required: (keyof FormData)[] = [
-      "firstName",
-      "lastName",
-      "email",
-      "phoneNumber",
-      "address",
-      "city",
-      "country",
-      "regionState",
-    ];
+    try {
+      const parsed = signupSchema.parse(formData);
+      const user = {
+        id: '1',
+        email: parsed.email,
+        name: `${parsed.firstName} ${parsed.lastName}`.trim(),
+      };
 
-    required.forEach((k) => {
-      if (!formData[k].trim()) fieldErrors[k] = "Required";
-    });
+      dispatch(signupSuccess(user));
+      navigate('/');
+    } catch (error: unknown) {
+      const fieldErrors: Record<string, string> = {};
 
-    if (Object.keys(fieldErrors).length) {
+      if (error && typeof error === 'object' && 'errors' in error) {
+        const issues = error.errors as Array<{ path: string[]; message: string }>;
+        issues.forEach((issue) => {
+          fieldErrors[issue.path[0]] = issue.message;
+        });
+      }
+
       setErrors(fieldErrors);
-      return;
     }
-
-    const user = {
-      id: "1",
-      email: formData.email,
-      name: `${formData.firstName} ${formData.lastName}`.trim(),
-    };
-
-    dispatch(signupSuccess(user));
-    navigate("/");
   };
 
   return (
@@ -81,7 +66,7 @@ const Signup: React.FC = () => {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 text-sm lg:px-0">
           <span>Register</span>
           <span className="text-xs opacity-90">
-            Home <span className="mx-1">–</span> Register
+            Home <span className="mx-1">-</span> Register
           </span>
         </div>
       </div>
@@ -92,22 +77,22 @@ const Signup: React.FC = () => {
             <div className="mb-8 flex items-center justify-center gap-1">
               <img
                 src="/assets/Login/Group.png"
-                alt="FoodTrove"
+                alt="Foodzy"
                 className="h-10 w-auto"
               />
-              <img src="/assets/Login/FoodTrove.png" alt="" />
+              <img src="/assets/Login/FoodTrove.png" alt="Foodzy wordmark" />
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <Input
-                  label="Firast Name*"
+                  label="First Name*"
                   type="text"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
                   error={errors.firstName}
-                  placeholder="Enter Your First Name"
+                  placeholder="Enter your first name"
                 />
 
                 <Input
@@ -117,7 +102,7 @@ const Signup: React.FC = () => {
                   value={formData.lastName}
                   onChange={handleChange}
                   error={errors.lastName}
-                  placeholder="Enter Your Last Name"
+                  placeholder="Enter your last name"
                 />
 
                 <Input
@@ -127,7 +112,7 @@ const Signup: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   error={errors.email}
-                  placeholder="Enter Your email"
+                  placeholder="Enter your email"
                 />
 
                 <Input
@@ -160,7 +145,6 @@ const Signup: React.FC = () => {
                   onChange={handleChange}
                   error={errors.city}
                   placeholder="City"
-                  className="bg-slate-100"
                 />
 
                 <Input
@@ -181,7 +165,6 @@ const Signup: React.FC = () => {
                   onChange={handleChange}
                   error={errors.country}
                   placeholder="Country"
-                  className="bg-slate-100"
                 />
 
                 <Input
@@ -192,11 +175,9 @@ const Signup: React.FC = () => {
                   onChange={handleChange}
                   error={errors.regionState}
                   placeholder="Region/State"
-                  className="bg-slate-100"
                 />
               </div>
 
-              {/* Bottom row like screenshot */}
               <div className="flex items-center justify-between pt-2">
                 <Button type="submit" size="lg" className="px-10">
                   Signup
@@ -207,7 +188,7 @@ const Signup: React.FC = () => {
                     to="/login"
                     className="font-medium text-slate-700 hover:underline"
                   >
-                    Have an account?{" "}
+                    Have an account?
                   </Link>
                 </div>
               </div>

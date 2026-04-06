@@ -15,7 +15,7 @@ const Wishlist: React.FC = () => {
   };
 
   const handleAddToCart = (product: (typeof wishlistItems)[0]) => {
-    dispatch(addToCart(product));
+    dispatch(addToCart({ product }));
     dispatch(removeFromWishlist(product.id));
   };
 

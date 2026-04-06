@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineShoppingBag } from 'react-icons/md';
+import type { Product } from '../../types/product';
 
 interface Props {
-  product: any;
-  addToCart: (product: any) => void;
+  product: Product;
+  addToCart: (product: Product) => void;
 }
 
 const ProductCard: React.FC<Props> = ({ product, addToCart }) => {

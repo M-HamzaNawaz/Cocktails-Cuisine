@@ -6,7 +6,10 @@ export interface Product {
   image: string;
   category: string;
   stock: number;
-  rating?: number;
+  rating: number;
+  weight?: string;
+  tags?: string[];
+  createdAt?: string;
 }
 
 export interface CartItem extends Product {

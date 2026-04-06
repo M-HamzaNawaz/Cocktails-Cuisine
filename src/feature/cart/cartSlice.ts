@@ -1,11 +1,19 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { CartState } from './cartTypes';
 import type { Product } from '../../types/product';
+import { STORAGE_KEYS } from '../../utils/constant';
+import { loadOptionalState } from '../../utils/storage';
 
-const initialState: CartState = {
+interface AddToCartPayload {
+  product: Product;
+  quantity?: number;
+}
+
+const defaultState: CartState = {
   items: [],
   total: 0,
 };
+const initialState = loadOptionalState<CartState>(STORAGE_KEYS.CART) ?? defaultState;
 
 const calculateTotal = (items: CartState['items']) => {
   return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -15,15 +23,16 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<Product>) => {
+    addToCart: (state, action: PayloadAction<AddToCartPayload>) => {
+      const { product, quantity = 1 } = action.payload;
       const existingItem = state.items.find(
-        (item) => item.id === action.payload.id,
+        (item) => item.id === product.id,
       );
 
       if (existingItem) {
-        existingItem.quantity += 1;
+        existingItem.quantity += quantity;
       } else {
-        state.items.push({ ...action.payload, quantity: 1 });
+        state.items.push({ ...product, quantity });
       }
 
       state.total = calculateTotal(state.items);
