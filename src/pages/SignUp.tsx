@@ -89,6 +89,7 @@ const Signup: React.FC = () => {
                   label="First Name*"
                   type="text"
                   name="firstName"
+                  autoComplete="given-name"
                   value={formData.firstName}
                   onChange={handleChange}
                   error={errors.firstName}
@@ -99,6 +100,7 @@ const Signup: React.FC = () => {
                   label="Last Name*"
                   type="text"
                   name="lastName"
+                  autoComplete="family-name"
                   value={formData.lastName}
                   onChange={handleChange}
                   error={errors.lastName}
@@ -109,6 +111,7 @@ const Signup: React.FC = () => {
                   label="Email*"
                   type="email"
                   name="email"
+                  autoComplete="email"
                   value={formData.email}
                   onChange={handleChange}
                   error={errors.email}
@@ -119,6 +122,7 @@ const Signup: React.FC = () => {
                   label="Phone Number*"
                   type="text"
                   name="phoneNumber"
+                  autoComplete="tel"
                   value={formData.phoneNumber}
                   onChange={handleChange}
                   error={errors.phoneNumber}
@@ -130,6 +134,7 @@ const Signup: React.FC = () => {
                     label="Address*"
                     type="text"
                     name="address"
+                    autoComplete="street-address"
                     value={formData.address}
                     onChange={handleChange}
                     error={errors.address}
@@ -141,6 +146,7 @@ const Signup: React.FC = () => {
                   label="City*"
                   type="text"
                   name="city"
+                  autoComplete="address-level2"
                   value={formData.city}
                   onChange={handleChange}
                   error={errors.city}
@@ -151,6 +157,7 @@ const Signup: React.FC = () => {
                   label="Post Code"
                   type="text"
                   name="postCode"
+                  autoComplete="postal-code"
                   value={formData.postCode}
                   onChange={handleChange}
                   error={errors.postCode}
@@ -161,6 +168,7 @@ const Signup: React.FC = () => {
                   label="Country*"
                   type="text"
                   name="country"
+                  autoComplete="country-name"
                   value={formData.country}
                   onChange={handleChange}
                   error={errors.country}
@@ -171,6 +179,7 @@ const Signup: React.FC = () => {
                   label="Region State*"
                   type="text"
                   name="regionState"
+                  autoComplete="address-level1"
                   value={formData.regionState}
                   onChange={handleChange}
                   error={errors.regionState}

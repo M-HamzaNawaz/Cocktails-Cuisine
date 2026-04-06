@@ -13,7 +13,16 @@ const defaultState: CartState = {
   items: [],
   total: 0,
 };
-const initialState = loadOptionalState<CartState>(STORAGE_KEYS.CART) ?? defaultState;
+const storedCartState = loadOptionalState<Partial<CartState>>(STORAGE_KEYS.CART);
+const initialState: CartState = {
+  items: Array.isArray(storedCartState?.items)
+    ? storedCartState.items
+    : defaultState.items,
+  total:
+    typeof storedCartState?.total === 'number'
+      ? storedCartState.total
+      : defaultState.total,
+};
 
 const calculateTotal = (items: CartState['items']) => {
   return items.reduce((sum, item) => sum + item.price * item.quantity, 0);

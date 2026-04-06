@@ -7,8 +7,13 @@ import Topbar from './components/layout/Topbar';
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <div className="flex flex-col min-h-screen">
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
+      <div className="flex min-h-screen w-full flex-col overflow-x-hidden">
         <Topbar />
         <Navbar />
         <main className="flex-grow">
