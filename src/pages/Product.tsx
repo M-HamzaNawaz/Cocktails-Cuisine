@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { RiGridLine } from 'react-icons/ri';
 import { TfiLayoutListThumb } from 'react-icons/tfi';
+import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import ProductFilters from '../components/product/ProductFilter';
 import Pagination from '../components/product/Pagination';
 import ProductCard from '../components/product/ProductCard';
-import {
-  productCategories,
-  sidebarCategories,
-  tagOptions,
-  weightOptions,
-} from '../config/productFilters';
 import { addToCart } from '../feature/cart/cartSlice';
 import { selectFilteredProducts } from '../feature/product/productSelectors';
 import {
   fetchProducts,
+  clearFilters,
   setPriceRange,
   setSortBy,
   toggleCategory,
@@ -22,14 +18,22 @@ import {
   toggleWeight,
 } from '../feature/product/productsSlice';
 import type { Product as ProductType } from '../types/product';
+import { buildProductFilterOptions } from '../utils/buildProductFilterOptions';
 
 const Product: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { loading, filters } = useAppSelector((state) => state.products);
+  const [searchParams] = useSearchParams();
+  const { products, loading, filters } = useAppSelector((state) => state.products);
   const filteredProducts = useAppSelector(selectFilteredProducts);
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 9;
+  const {
+    categories: sidebarCategories,
+    weights: weightOptions,
+    tags: tagOptions,
+    maxPrice,
+  } = buildProductFilterOptions(products);
   const totalPages = Math.max(
     1,
     Math.ceil(filteredProducts.length / itemsPerPage),
@@ -38,6 +42,39 @@ const Product: React.FC = () => {
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+
+    if (!categoryParam || products.length === 0) {
+      return;
+    }
+
+    const matchingCategory = sidebarCategories.find(
+      (category) => category.name === categoryParam,
+    );
+
+    if (!matchingCategory) {
+      return;
+    }
+
+    const isOnlySelectedCategory =
+      filters.selectedCategories.length === 1 &&
+      filters.selectedCategories[0] === matchingCategory.name;
+
+    if (isOnlySelectedCategory) {
+      return;
+    }
+
+    dispatch(clearFilters());
+    dispatch(toggleCategory(matchingCategory.name));
+  }, [dispatch, filters.selectedCategories, products.length, searchParams, sidebarCategories]);
+
+  useEffect(() => {
+    if (products.length > 0 && filters.priceRange[1] > maxPrice) {
+      dispatch(setPriceRange([0, maxPrice]));
+    }
+  }, [dispatch, filters.priceRange, maxPrice, products.length]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -66,13 +103,13 @@ const Product: React.FC = () => {
           <div className="col-span-12 space-y-6 lg:col-span-3">
             <ProductFilters
               categories={sidebarCategories}
-              productCategories={productCategories}
               weights={weightOptions}
               tags={tagOptions}
               selectedCategories={filters.selectedCategories}
               selectedWeights={filters.selectedWeights}
               selectedTags={filters.selectedTags}
               priceRange={filters.priceRange}
+              maxPrice={maxPrice}
               toggleCategory={(value) => dispatch(toggleCategory(value))}
               toggleWeight={(value) => dispatch(toggleWeight(value))}
               toggleTag={(value) => dispatch(toggleTag(value))}

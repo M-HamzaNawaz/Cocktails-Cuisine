@@ -6,12 +6,6 @@ import ProductFilters from '../components/product/ProductFilter';
 import ProductTabs from '../components/product/ProductTabs';
 import Button from '../components/ui/Button';
 import PopularProductsSection from '../components/ui/PopularProducts';
-import {
-  productCategories,
-  sidebarCategories,
-  tagOptions,
-  weightOptions,
-} from '../config/productFilters';
 import { addToCart } from '../feature/cart/cartSlice';
 import {
   fetchProductById,
@@ -22,6 +16,8 @@ import {
   setPriceRange,
 } from '../feature/product/productsSlice';
 import { addToWishlist } from '../feature/wishlist/wishlistSlice';
+import { buildProductFilterOptions } from '../utils/buildProductFilterOptions';
+import { ROUTES } from '../utils/constant';
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -32,6 +28,12 @@ const ProductDetails: React.FC = () => {
   );
   const [quantity, setQuantity] = useState(1);
   const [selectedWeight, setSelectedWeight] = useState<string>('200g');
+  const {
+    categories: sidebarCategories,
+    weights: weightOptions,
+    tags: tagOptions,
+    maxPrice,
+  } = buildProductFilterOptions(products);
 
   useEffect(() => {
     if (products.length === 0) {
@@ -72,30 +74,54 @@ const ProductDetails: React.FC = () => {
     dispatch(addToWishlist(product));
   };
 
+  const openFilteredProducts = () => {
+    navigate(ROUTES.PRODUCTS);
+  };
+
+  const handleCategoryFilter = (value: string) => {
+    dispatch(toggleCategory(value));
+    openFilteredProducts();
+  };
+
+  const handleWeightFilter = (value: string) => {
+    dispatch(toggleWeight(value));
+    openFilteredProducts();
+  };
+
+  const handleTagFilter = (value: string) => {
+    dispatch(toggleTag(value));
+    openFilteredProducts();
+  };
+
+  const handlePriceRange = (nextRange: [number, number]) => {
+    dispatch(setPriceRange(nextRange));
+    openFilteredProducts();
+  };
+
   return (
     <Wrapper className="">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex gap-6">
-          <div className="w-64 flex-shrink-0">
+        <div className="flex flex-col gap-6 lg:flex-row">
+          <div className="lg:w-[280px] lg:flex-shrink-0">
             <ProductFilters
               categories={sidebarCategories}
-              productCategories={productCategories}
               weights={weightOptions}
               tags={tagOptions}
               selectedCategories={filters.selectedCategories}
               selectedWeights={filters.selectedWeights}
               selectedTags={filters.selectedTags}
               priceRange={filters.priceRange}
-              toggleCategory={(value) => dispatch(toggleCategory(value))}
-              toggleWeight={(value) => dispatch(toggleWeight(value))}
-              toggleTag={(value) => dispatch(toggleTag(value))}
-              setPriceRange={(nextRange) => dispatch(setPriceRange(nextRange))}
+              maxPrice={maxPrice}
+              toggleCategory={handleCategoryFilter}
+              toggleWeight={handleWeightFilter}
+              toggleTag={handleTagFilter}
+              setPriceRange={handlePriceRange}
             />
           </div>
 
           <div className="flex-1">
-            <div className="flex gap-8">
-              <div className="w-1/2">
+            <div className="flex flex-col gap-8 xl:flex-row">
+              <div className="xl:w-1/2">
                 <img
                   src={product.image}
                   alt={product.name}
@@ -103,7 +129,7 @@ const ProductDetails: React.FC = () => {
                 />
               </div>
 
-              <div className="w-1/2">
+              <div className="xl:w-1/2">
                 <div className="mb-2 text-sm text-gray-500">{product.category}</div>
                 <h1 className="mb-4 text-4xl font-bold">{product.name}</h1>
 
