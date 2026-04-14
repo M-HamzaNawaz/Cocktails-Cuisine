@@ -1,184 +1,184 @@
 import React from 'react';
 import { AiOutlineInstagram } from 'react-icons/ai';
+import { HiOutlineEnvelope, HiOutlineMapPin, HiOutlinePhone } from 'react-icons/hi2';
 import { IoPaperPlaneSharp } from 'react-icons/io5';
 import { PiGlobe } from 'react-icons/pi';
 import { RiFacebookLine, RiTwitterXLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../../utils/constant';
+
+const companyLinks = [
+  { label: 'About Us', to: ROUTES.ABOUT },
+  { label: 'Shop Products', to: ROUTES.PRODUCTS },
+  { label: 'Blog', to: ROUTES.BLOG },
+  { label: 'FAQ', to: ROUTES.FAQ },
+  { label: 'Login', to: ROUTES.LOGIN },
+  { label: 'Create Account', to: ROUTES.SIGNUP },
+];
+
+const categoryLinks = [
+  { label: 'Diary & Milk', value: 'Diary & Milk' },
+  { label: 'Fruit', value: 'Fruit' },
+  { label: 'Snack & Spice', value: 'Snack & Spice' },
+  { label: 'Drink', value: 'Drink' },
+  { label: 'Meat', value: 'Meat' },
+  { label: 'Vegetable', value: 'Vegetable' },
+];
+
+const socialLinks = [
+  { label: 'Facebook', href: 'https://facebook.com', icon: RiFacebookLine },
+  { label: 'X', href: 'https://x.com', icon: RiTwitterXLine },
+  { label: 'Website', href: 'https://foodzy.example.com', icon: PiGlobe },
+  { label: 'Instagram', href: 'https://instagram.com', icon: AiOutlineInstagram },
+];
+
+const thumbs = [
+  '/assets/footer/img_1 (1).png',
+  '/assets/footer/img_2 (1).png',
+  '/assets/footer/img_3 (1).png',
+  '/assets/footer/img_4 (1).png',
+  '/assets/footer/img_5.png',
+];
+
 const Footer: React.FC = () => {
-  const thumbs = [
-    '/assets/footer/img_1 (1).png',
-    '/assets/footer/img_2 (1).png',
-    '/assets/footer/img_3 (1).png',
-    '/assets/footer/img_4 (1).png',
-    '/assets/footer/img_5.png',
-  ];
   return (
-    <div>
-      <footer className="mt-auto w-full bg-gray-100 text-slate-100">
-        <div className="mx-auto max-w-6xl px-4 py-10 lg:px-0">
-          <div className="grid gap-8 md:grid-cols-4">
-            {/* Brand / contact */}
-            <div className="space-y-3 text-[13px]">
-              <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-amber-100">
-                  <span className="text-lg">
-                    <img src="/assets/ui/footer_logo.png" alt="Foodzy Logo" />
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-black">Foodzy</p>
-                  <p className="text-[11px] text-[#777777]">
-                    A Treasure of Tastes
-                  </p>
-                </div>
-              </div>
-              <p className="text-[#777777]">
-                FoodTrue is the biggest market of grocery products. Get your
-                daily needs from our store.
+    <footer className="mt-auto w-full border-t border-[#f1d8d2] bg-gradient-to-b from-[#fff8f5] via-[#fffaf7] to-white text-slate-700">
+      <div className="mx-auto max-w-6xl px-4 py-12">
+        <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-[1.2fr_0.8fr_0.8fr_1fr]">
+          <div className="space-y-5 text-sm">
+            <div className="space-y-1">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-red-400">
+                Cocktails Cusisine
               </p>
-              <div className="space-y-1 text-[#777777]">
-                <p className="flex gap-2">
-                  <span className="mt-[2px] text-[#ff4c3b]">📍</span>
-                  51 Green St. Huntington, Ohaio beach, Ontario, NY 11746 KT
-                  4783, USA
-                </p>
-                <p className="flex gap-2">
-                  <span className="mt-[2px] text-[#ff4c3b]">✉</span>
-                  example@email.com
-                </p>
-                <p className="flex gap-2">
-                  <span className="mt-[2px] text-[#ff4c3b]">📞</span>
-                  +91 123 4567890
-                </p>
-              </div>
+              <p className="text-2xl font-bold text-slate-900">
+                Fresh picks and quick routes
+              </p>
+              <p className="text-sm text-slate-500">
+                Built to feel just like the topbar brand across the whole page.
+              </p>
             </div>
 
-            {/* Company links */}
-            <div className="space-y-4">
-              <h5 className="font-bold text-black">Company</h5>
-              <ul className=" text-[#777777] space-y-2 text-sm">
-                <li>
-                  <Link to="/about" className="hover:text-[#ff4c3b]">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link to="#" className="hover:text-[#ff4c3b]">
-                    Delivery Information
-                  </Link>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#ff4c3b]">
-                    Privacy Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#ff4c3b]">
-                    Terms & Conditions
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#ff4c3b]">
-                    Contact Us
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#ff4c3b]">
-                    Support Center
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <p className="max-w-sm leading-6 text-slate-500">
+              Foodzy brings together everyday grocery picks, pantry staples, and
+              fresh finds in one calm shopping experience.
+            </p>
 
-            {/* Category links */}
-            <div className="space-y-4">
-              <h5 className="text-black font-bold">Category</h5>
-              <ul className="text-[#777777] space-y-2 text-sm">
-                <li>
-                  <a href="#" className="hover:text-[#ff4c3b]">
-                    Dairy & Bakery
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#ff4c3b]">
-                    Fruits & Vegetable
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#ff4c3b]">
-                    Snack & Spice
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#ff4c3b]">
-                    Juice & Drinks
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#ff4c3b]">
-                    Chicken & Meat
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-[#ff4c3b]">
-                    Fast Food
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Newsletter */}
-            <div className="text-[13px]">
-              <h3 className="text-sm font-bold text-black">
-                Subscribe Our Newsletter
-              </h3>
-              <form
-                className="mt-4 flex items-stretch"
-                onSubmit={(e) => e.preventDefault()}
+            <div className="space-y-3 text-slate-500">
+              <p className="flex items-start gap-3">
+                <HiOutlineMapPin className="mt-0.5 shrink-0 text-lg text-[#ff4c3b]" />
+                51 Green St, Huntington Beach, Ontario, NY 11746, USA
+              </p>
+              <a
+                href="mailto:support@foodzy.com"
+                className="flex items-center gap-3 transition-colors hover:text-[#ff4c3b]"
               >
-                <input
-                  type="email"
-                  placeholder="Search here..."
-                  className="w-full   px-4 py-2.5  border-gray-300  text-black outline-none placeholder:text-black"
-                />
-                <button className=" bg-white px-4 hover:bg-[#e63f2f]">
-                  <IoPaperPlaneSharp className="text-black" />
-                </button>
-              </form>
-              {/* Social + thumbnails (simplified placeholders) */}
-              <div className="mt-4 flex items-center gap-1 text-black">
-                <button className="p-2  bg-white ">
-                  <RiFacebookLine className="text-2xl" />
-                </button>
-                <button className="p-2 bg-white ">
-                  <RiTwitterXLine className="text-2xl" />
-                </button>
-                <button className="p-2 bg-white ">
-                  <PiGlobe className="text-2xl" />
-                </button>
-                <button className="p-2 bg-white ">
-                  <AiOutlineInstagram className="text-2xl" />
-                </button>
-              </div>
-              <div className="mt-4 flex gap-2">
-                {thumbs.map((src, idx) => (
-                  <div
-                    key={idx}
-                    className="h-10 w-20 rounded-md bg-cover bg-center"
-                    style={{ backgroundImage: `url("${src}")` }}
-                  />
-                ))}
-              </div>
+                <HiOutlineEnvelope className="shrink-0 text-lg text-[#ff4c3b]" />
+                support@foodzy.com
+              </a>
+              <a
+                href="tel:+911234567890"
+                className="flex items-center gap-3 transition-colors hover:text-[#ff4c3b]"
+              >
+                <HiOutlinePhone className="shrink-0 text-lg text-[#ff4c3b]" />
+                +91 123 456 7890
+              </a>
             </div>
           </div>
 
-          <div className="mt-8 border-t border-[#7777] pt-4 text-center text-[11px] text-slate-500">
-            © 2026 <span className="font-semibold text-[#ff4c3b]">foodzy</span>,
-            All rights reserved.
+          <div className="space-y-4">
+            <h2 className="text-base font-bold text-slate-900">Company</h2>
+            <ul className="space-y-2.5 text-sm text-slate-500">
+              {companyLinks.map((link) => (
+                <li key={link.label}>
+                  <Link to={link.to} className="transition-colors hover:text-[#ff4c3b]">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="text-base font-bold text-slate-900">Categories</h2>
+            <ul className="space-y-2.5 text-sm text-slate-500">
+              {categoryLinks.map((category) => (
+                <li key={category.value}>
+                  <Link
+                    to={`${ROUTES.PRODUCTS}?category=${encodeURIComponent(category.value)}`}
+                    className="transition-colors hover:text-[#ff4c3b]"
+                  >
+                    {category.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <div>
+              <h2 className="text-base font-bold text-slate-900">Newsletter</h2>
+              <p className="mt-2 text-sm leading-6 text-slate-500">
+                Weekly updates, fresh offers, and quick food inspo straight to your inbox.
+              </p>
+            </div>
+
+            <form
+              className="flex overflow-hidden rounded-2xl border border-[#f0d9d3] bg-white shadow-sm"
+              onSubmit={(event) => event.preventDefault()}
+            >
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-full min-w-0 px-4 py-3 text-sm text-slate-700 outline-none placeholder:text-slate-400"
+              />
+              <button
+                type="submit"
+                className="flex items-center justify-center bg-[#ff4c3b] px-4 text-white transition-colors hover:bg-[#e63f2f]"
+                aria-label="Subscribe to newsletter"
+              >
+                <IoPaperPlaneSharp className="text-lg" />
+              </button>
+            </form>
+
+            <div className="flex flex-wrap items-center gap-2">
+              {socialLinks.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[#f0d9d3] bg-white text-slate-600 shadow-sm transition-all hover:border-[#ffb7ae] hover:text-[#ff4c3b]"
+                >
+                  <Icon className="text-lg" />
+                </a>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-5 gap-2">
+              {thumbs.map((src) => (
+                <div
+                  key={src}
+                  className="aspect-square rounded-xl border border-[#f3dfd9] bg-cover bg-center"
+                  style={{ backgroundImage: `url("${src}")` }}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </footer>
-    </div>
+
+        <div className="mt-10 flex flex-col gap-3 border-t border-[#f1d8d2] pt-5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            Copyright 2026{' '}
+            <span className="font-semibold uppercase tracking-[0.2em] text-[#ff4c3b]">
+              Cocktails Cusisine
+            </span>
+            . All rights reserved.
+          </p>
+          <p>Fresh groceries, quick delivery, and simpler browsing.</p>
+        </div>
+      </div>
+    </footer>
   );
 };
 

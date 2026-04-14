@@ -10,6 +10,7 @@ interface CommonDropdownProps {
   options: DropdownOption[];
   defaultValue?: string;
   className?: string;
+  triggerClassName?: string;
   onChange?: (value: string) => void;
 }
 
@@ -17,17 +18,22 @@ const CommonDropdown: React.FC<CommonDropdownProps> = ({
   options,
   defaultValue = '',
   className = '',
+  triggerClassName = '',
   onChange,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const initialValue =
-    options.find((option) => option.value === defaultValue)?.value ?? options[0]?.value ?? '';
+    options.find((option) => option.value === defaultValue)?.value ??
+    options[0]?.value ??
+    '';
   const [selectedValue, setSelectedValue] = useState(initialValue);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const nextValue =
-      options.find((option) => option.value === defaultValue)?.value ?? options[0]?.value ?? '';
+      options.find((option) => option.value === defaultValue)?.value ??
+      options[0]?.value ??
+      '';
     setSelectedValue(nextValue);
   }, [defaultValue, options]);
 
@@ -55,7 +61,9 @@ const CommonDropdown: React.FC<CommonDropdownProps> = ({
 
   const selectedOption = useMemo(
     () =>
-      options.find((option) => option.value === selectedValue) ?? options[0] ?? null,
+      options.find((option) => option.value === selectedValue) ??
+      options[0] ??
+      null,
     [options, selectedValue],
   );
 
@@ -69,7 +77,7 @@ const CommonDropdown: React.FC<CommonDropdownProps> = ({
     <div ref={containerRef} className={`relative ${className}`}>
       <button
         type="button"
-        className="flex w-full items-center justify-between gap-3 rounded-full border border-slate-200 bg-white/90 py-2.5 pl-4 pr-4 text-sm font-medium text-slate-700 shadow-sm outline-none transition-all duration-200 hover:border-red-200 hover:bg-white focus:border-red-400 focus:bg-white focus:ring-2 focus:ring-red-100"
+        className={`flex w-full items-center justify-between gap-3 rounded-full border border-slate-200 bg-transparent py-2.5 pl-4 pr-4 text-sm font-medium text-slate-700 outline-none transition-all duration-200 hover:border-red-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 ${triggerClassName}`}
         onClick={() => setIsOpen((prev) => !prev)}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
@@ -85,7 +93,11 @@ const CommonDropdown: React.FC<CommonDropdownProps> = ({
 
       {isOpen && (
         <div className="absolute left-0 top-[calc(100%+10px)] z-50 w-full overflow-hidden rounded-3xl border border-red-100 bg-white p-2 shadow-[0_18px_40px_rgba(15,23,42,0.14)]">
-          <div className="flex flex-col gap-1" role="listbox" aria-activedescendant={selectedValue}>
+          <div
+            className="flex flex-col gap-1"
+            role="listbox"
+            aria-activedescendant={selectedValue}
+          >
             {options.map((option) => {
               const isSelected = option.value === selectedValue;
 

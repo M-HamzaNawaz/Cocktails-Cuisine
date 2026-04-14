@@ -1,21 +1,19 @@
 import React from 'react';
 import type {
-  ColoredFilterOption,
   FilterOption,
   LabelFilterOption,
 } from '../../config/productFilters';
 
 interface Props {
   categories?: FilterOption[];
-  productCategories?: ColoredFilterOption[];
   weights?: LabelFilterOption[];
   tags?: LabelFilterOption[];
   selectedCategories?: string[];
   selectedWeights?: string[];
   selectedTags?: string[];
   priceRange?: [number, number];
+  maxPrice?: number;
   toggleCategory?: (val: string) => void;
-  toggleProductCategory?: (val: string) => void;
   toggleWeight?: (val: string) => void;
   toggleTag?: (val: string) => void;
   setPriceRange?: (nextRange: [number, number]) => void;
@@ -24,15 +22,14 @@ interface Props {
 // ---------- Component ----------
 const ProductFilters: React.FC<Props> = ({
   categories = [],
-  productCategories = [],
   weights = [],
   tags = [],
   selectedCategories = [],
   selectedWeights = [],
   selectedTags = [],
   priceRange = [0, 500],
+  maxPrice = 500,
   toggleCategory,
-  toggleProductCategory,
   toggleWeight,
   toggleTag,
   setPriceRange,
@@ -73,8 +70,8 @@ const ProductFilters: React.FC<Props> = ({
         <input
           type="range"
           min={0}
-          max={500}
-          value={priceRange[1]}
+          max={maxPrice}
+          value={Math.min(priceRange[1], maxPrice)}
           onChange={(e) =>
             setPriceRange && setPriceRange([0, Number.parseInt(e.target.value, 10)])
           }
@@ -87,37 +84,6 @@ const ProductFilters: React.FC<Props> = ({
           </span>
         </p>
       </div>
-
-      {/* Product Categories */}
-      {productCategories.length > 0 && (
-        <div>
-          <h3 className="text-lg font-semibold text-gray-900 border-b pb-3 mb-4">
-            Product Types
-          </h3>
-          <div className="space-y-3">
-            {productCategories.map((pc) => (
-              <label
-                key={pc.name}
-                className="flex items-center justify-between cursor-pointer"
-              >
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    onChange={() =>
-                      toggleProductCategory && toggleProductCategory(pc.name)
-                    }
-                    className="w-4 h-4 accent-red-500"
-                  />
-                  <span className="text-sm text-gray-700">{pc.name}</span>
-                </div>
-                <span
-                  className={`text-xs text-gray-400 ${pc.color}`}
-                >{`[${pc.count}]`}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Weights */}
       <div>
