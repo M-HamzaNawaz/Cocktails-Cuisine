@@ -123,6 +123,7 @@ const productSlice = createSlice({
       .addCase(fetchProductById.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.selectedProduct = null;
       })
       .addCase(
         fetchProductById.fulfilled,
@@ -133,6 +134,7 @@ const productSlice = createSlice({
       )
       .addCase(fetchProductById.rejected, (state, action) => {
         state.loading = false;
+        state.selectedProduct = null;
         state.error = action.payload as string;
       });
   },

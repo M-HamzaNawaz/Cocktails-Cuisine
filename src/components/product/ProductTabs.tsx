@@ -1,4 +1,3 @@
-// ProductTabs.tsx
 import React, { useState } from 'react';
 
 const tabs = ['description', 'information', 'review'] as const;
@@ -11,68 +10,100 @@ const ProductTabs: React.FC = () => {
     switch (activeTab) {
       case 'description':
         return (
-          <div className="space-y-4">
-            <p className="text-gray-600 text-sm">
+          <div className="space-y-5 text-sm leading-7 text-slate-600">
+            <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Error in
-              vero sapiente odio, error dolore vero temporibus consequatur,
-              nobis veniam odit dignissimos consectetur quae in perferendis
-              doloribusdebitiis corporis, eaque dicta, repellat amet, illum
-              adipisci vel perferendis dolor! Quis vel consequuntur repellat
-              distinctio rem. Corrupti ratione alias odio, error dolore
-              temporibus consequatur, nobis veniam odit laborum dignissimos
-              consectetur quae vero in perferendis provident quis.
+              vero sapiente odio, temporibus consequatur nobis veniam odit
+              dignissimos consectetur quae in perferendis dicta repellat amet
+              illum adipisci vel perferendis dolor.
             </p>
 
-            <h4 className="font-semibold mt-4">Packaging & Delivery</h4>
-            <hr className="my-2 border-gray-300" />
-            <p className="text-gray-600 text-sm">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error in
-              vero perferendis dolor! Quis vel consequuntur repellat distinctio
-              rem. Corrupti ratione alias odio, error dolore temporibus
-              consequatur, nobis veniam odit laborum dignissimos consectetur
-              quae vero in perferendis provident quis.
-            </p>
+            <div className="rounded-2xl bg-slate-50 p-5">
+              <h4 className="font-semibold text-slate-800">Packaging and delivery</h4>
+              <p className="mt-3">
+                Quis vel consequuntur repellat distinctio rem. Corrupti ratione
+                alias odio, error dolore temporibus consequatur, nobis veniam
+                odit laborum dignissimos consectetur quae vero in perferendis
+                provident quis.
+              </p>
+            </div>
           </div>
         );
 
       case 'information':
         return (
-          <div className="text-gray-600 text-sm">
-            {/* Replace with actual Information content */}
-            Product information content goes here.
+          <div className="grid gap-4 text-sm text-slate-600 sm:grid-cols-2">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                Origin
+              </p>
+              <p className="mt-2 font-medium text-slate-800">Fresh market selection</p>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                Storage
+              </p>
+              <p className="mt-2 font-medium text-slate-800">Keep refrigerated after opening</p>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                Packaging
+              </p>
+              <p className="mt-2 font-medium text-slate-800">Eco-friendly sealed pack</p>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                Shelf life
+              </p>
+              <p className="mt-2 font-medium text-slate-800">Best within 5 to 7 days</p>
+            </div>
           </div>
         );
 
       case 'review':
         return (
-          <div className="text-gray-600 text-sm">
-            {/* Replace with actual Review content */}
-            Product reviews content goes here.
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <h4 className="font-semibold text-slate-800">Ayesha Khan</h4>
+                  <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                    Verified buyer
+                  </p>
+                </div>
+                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+                  4.8 / 5
+                </span>
+              </div>
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                Fresh packaging, quick delivery, and the quality felt exactly
+                like the product preview. Would order again.
+              </p>
+            </div>
           </div>
         );
     }
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      {/* Tabs */}
-      <div className="flex border-b border-gray-300 mb-4">
+    <div className="w-full">
+      <div className="mb-6 flex flex-wrap gap-2 border-b border-slate-200 pb-4">
         {tabs.map((tab) => (
           <button
             key={tab}
+            type="button"
             onClick={() => setActiveTab(tab)}
-            className={`py-2 px-4 text-sm font-medium ${
+            className={`rounded-full px-4 py-2 text-sm font-medium capitalize transition ${
               activeTab === tab
-                ? 'border-b-2 border-red-500 text-red-500'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'bg-red-500 text-white shadow-[0_10px_24px_rgba(255,76,59,0.2)]'
+                : 'bg-slate-100 text-slate-600 hover:bg-red-50 hover:text-red-500'
             }`}
           >
-            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            {tab}
           </button>
         ))}
       </div>
 
-      {/* Content */}
       <div>{renderContent()}</div>
     </div>
   );
