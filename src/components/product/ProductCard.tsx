@@ -30,7 +30,7 @@ const ProductCard: React.FC<Props> = ({ product, addToCart }) => {
 
         <Link to={`/products/${product.id}`}>
           <h3 className="font-medium text-[15px] leading-[24px] tracking-[0.48px] text-center text-gray-900 mb-2 line-clamp-2 min-h-[48px] hover:text-red-500 transition">
-            {product.description}
+            {product.name}
           </h3>
         </Link>
 
