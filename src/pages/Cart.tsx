@@ -6,6 +6,7 @@ import { removeFromCart, updateQuantity } from '../feature/cart/cartSlice';
 import Button from '../components/ui/Button';
 import PopularProducts from '../components/ui/PopularProducts';
 import Wrapper from '../components/container/Wrapper';
+import PageBanner from '../components/ui/PageBanner';
 
 const money = (n: number) => `$${Number(n).toFixed(2)}`;
 
@@ -46,14 +47,7 @@ const Cart: React.FC = () => {
   return (
     <Wrapper>
       <div className="min-h-screen bg-[#fafafa] text-slate-800">
-        <div className="w-full bg-[#ff4c3b] text-white">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 text-sm lg:px-0">
-            <span>Cart</span>
-            <span className="text-xs opacity-90">
-              Home <span className="mx-1">/</span> Cart
-            </span>
-          </div>
-        </div>
+        <PageBanner title="Cart" />
 
         <div className="mx-auto max-w-6xl px-4 py-10 lg:px-0">
           <div className="overflow-hidden rounded-md border border-slate-200 bg-white">

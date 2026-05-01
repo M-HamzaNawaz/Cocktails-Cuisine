@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import ProductFilters from '../components/product/ProductFilter';
 import Pagination from '../components/product/Pagination';
 import ProductCard from '../components/product/ProductCard';
+import PageBanner from '../components/ui/PageBanner';
 import { addToCart } from '../feature/cart/cartSlice';
 import { selectFilteredProducts } from '../feature/product/productSelectors';
 import {
@@ -40,8 +41,10 @@ const Product: React.FC = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+    if (products.length === 0) {
+      dispatch(fetchProducts());
+    }
+  }, [dispatch, products.length]);
 
   useEffect(() => {
     const categoryParam = searchParams.get('category');
@@ -50,25 +53,26 @@ const Product: React.FC = () => {
       return;
     }
 
-    const matchingCategory = sidebarCategories.find(
-      (category) => category.name === categoryParam,
+    const normalizedCategoryParam = categoryParam.trim().toLowerCase();
+    const hasMatchingCategory = products.some(
+      (product) => product.category.trim().toLowerCase() === normalizedCategoryParam,
     );
 
-    if (!matchingCategory) {
+    if (!hasMatchingCategory) {
       return;
     }
 
     const isOnlySelectedCategory =
       filters.selectedCategories.length === 1 &&
-      filters.selectedCategories[0] === matchingCategory.name;
+      filters.selectedCategories[0].trim().toLowerCase() === normalizedCategoryParam;
 
     if (isOnlySelectedCategory) {
       return;
     }
 
     dispatch(clearFilters());
-    dispatch(toggleCategory(matchingCategory.name));
-  }, [dispatch, filters.selectedCategories, products.length, searchParams, sidebarCategories]);
+    dispatch(toggleCategory(categoryParam));
+  }, [dispatch, filters.selectedCategories, products, searchParams]);
 
   useEffect(() => {
     if (products.length > 0 && filters.priceRange[1] > maxPrice) {
@@ -97,9 +101,10 @@ const Product: React.FC = () => {
   };
 
   return (
-    <div className="font-poppins min-h-screen py-8">
+    <div className="font-poppins min-h-screen">
+      <PageBanner title="Products" />
       <div className="container mx-auto max-w-6xl max-lg:px-6">
-        <div className="grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-12 gap-6 py-8">
           <div className="col-span-12 space-y-6 lg:col-span-3">
             <ProductFilters
               categories={sidebarCategories}
@@ -114,6 +119,7 @@ const Product: React.FC = () => {
               toggleWeight={(value) => dispatch(toggleWeight(value))}
               toggleTag={(value) => dispatch(toggleTag(value))}
               setPriceRange={(nextRange) => dispatch(setPriceRange(nextRange))}
+              clearFilters={() => dispatch(clearFilters())}
             />
           </div>
 

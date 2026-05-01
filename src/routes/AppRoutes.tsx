@@ -4,6 +4,7 @@ import Home from '../pages/Home';
 import Product from '../pages/Product';
 import ProductDetails from '../pages/ProductDetail';
 import Login from '../pages/Login';
+import ForgotPassword from '../pages/ForgotPassword';
 import Signup from '../pages/SignUp';
 import Cart from '../pages/Cart';
 import Wishlist from '../pages/Wishlist';
@@ -19,6 +20,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/products" element={<Product />} />
       <Route path="/products/:id" element={<ProductDetails />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/wishlist" element={<Wishlist />} />

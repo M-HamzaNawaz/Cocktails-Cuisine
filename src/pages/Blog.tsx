@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { AiOutlineInstagram } from "react-icons/ai";
 import { RiFacebookLine, RiLinkedinLine, RiTwitterXLine } from "react-icons/ri";
-
 import { TbArrowBigRightFilled } from "react-icons/tb";
+import PageBanner from "../components/ui/PageBanner";
 
 const BlogPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -10,17 +10,8 @@ const BlogPage: React.FC = () => {
 
   return (
     <>
-      {/* Header */}
-      <div className="w-full bg-red-600 text-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 text-sm lg:px-0">
-          <span className="font-medium">Blog Details</span>
-          <span className="text-xs opacity-90">
-            Home <span className="mx-1">–</span> Blog Details
-          </span>
-        </div>
-      </div>
+      <PageBanner title="Blog Details" />
       <div className="max-w-6xl mx-auto px-4 py-10">
-        {/* Hero Image */}
         <div className="w-full overflow-hidden rounded-2xl">
           <img
             src="./assets/blog/blog2.png"
@@ -29,18 +20,15 @@ const BlogPage: React.FC = () => {
           />
         </div>
 
-        {/* Meta */}
         <div className="mt-6 text-sm text-gray-500">
           <span className="text-red-500 font-medium">By Admin</span> / 07
           Comment / Date - 11, 02, 2026
         </div>
 
-        {/* Title */}
         <h1 className="mt-3 text-3xl font-bold text-gray-900">
           Health Benefits of a Raw food
         </h1>
 
-        {/* Content */}
         <div className="mt-4 space-y-4 text-gray-600 leading-relaxed">
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
@@ -55,9 +43,7 @@ const BlogPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Two Cards */}
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Card 1 */}
           <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
             <img
               src="./assets/blog/blog3.png"
@@ -75,7 +61,6 @@ const BlogPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Card 2 */}
           <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
             <img
               src="./assets/blog/blog1.png"
@@ -94,8 +79,7 @@ const BlogPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Author */}
-        <div className="mt-10 flex flex-col border p-6   rounded-2xl">
+        <div className="mt-10 flex flex-col border p-6 rounded-2xl">
           <div>
             <p className="text-sm text-gray-600 mt-1">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -106,7 +90,7 @@ const BlogPage: React.FC = () => {
           </div>
           <div className="flex justify-between items-center">
             <h3 className="font-bold text-red-500">John martin</h3>
-            <button className="h-10 w-10 flex items-center justify-center rounded-full text-red-500  hover:text-white transition">
+            <button className="h-10 w-10 flex items-center justify-center rounded-full text-red-500 hover:text-white transition">
               <img src="./assets/blog/Vector.png" alt="" />
             </button>
           </div>
@@ -119,8 +103,7 @@ const BlogPage: React.FC = () => {
             fuga molestiae.
           </p>
         </div>
-        {/* Tags & Pagination */}
-        <div className="mt-5 flex flex-col border py-3 pl-3 md:flex-row md:items-center md:justify-between  gap-6">
+        <div className="mt-5 flex flex-col border py-3 pl-3 md:flex-row md:items-center md:justify-between gap-6">
           <div className="flex gap-3">
             {["Cabbage", "Appetizer", "Meat Food"].map((tag) => (
               <span
@@ -131,8 +114,8 @@ const BlogPage: React.FC = () => {
               </span>
             ))}
           </div>
-          <div className="flex gap-">
-            <button className="p-2  bg-white ">
+          <div className="flex">
+            <button className="p-2 bg-white ">
               <RiFacebookLine className="text-2xl border" />
             </button>
             <button className="p-2 bg-white ">
@@ -146,8 +129,7 @@ const BlogPage: React.FC = () => {
             </button>
           </div>
         </div>
-        <div className="flex justify-center items-center  py-3">
-          {/* Previous */}
+        <div className="flex justify-center items-center py-3">
           <button
             disabled={currentPage === 1}
             onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
@@ -162,7 +144,6 @@ const BlogPage: React.FC = () => {
             Previous
           </button>
 
-          {/* Page Numbers */}
           {[1, 2, 3].map((page) => (
             <button
               key={page}
@@ -175,7 +156,6 @@ const BlogPage: React.FC = () => {
             </button>
           ))}
 
-          {/* Next */}
           <button
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}

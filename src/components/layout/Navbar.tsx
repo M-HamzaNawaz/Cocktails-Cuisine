@@ -18,7 +18,9 @@ const Navbar: React.FC = () => {
   const wishlistItems = useAppSelector((state) =>
     Array.isArray(state.wishlist.items) ? state.wishlist.items : [],
   );
-  const searchQuery = useAppSelector((state) => state.products.filters.searchQuery);
+  const searchQuery = useAppSelector(
+    (state) => state.products.filters.searchQuery,
+  );
   const [localSearch, setLocalSearch] = useState(searchQuery);
   const userName = user?.name?.trim() ?? 'Account';
   const userInitial = userName.charAt(0).toUpperCase();
@@ -33,21 +35,25 @@ const Navbar: React.FC = () => {
   };
 
   const actionLinkClass =
-    'group flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-600 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-red-200 hover:bg-red-50 hover:text-red-500';
+    'group flex min-h-[44px] items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-600 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-red-200 hover:bg-red-50 hover:text-red-500';
+  const actionIconClass =
+    'flex h-8 w-8 items-center justify-center rounded-full bg-red-50 text-red-500 transition-colors duration-200 group-hover:bg-white';
 
   return (
     <nav className="border-b border-red-100 bg-gradient-to-b from-white via-[#fffaf7] to-white text-black shadow-[0_14px_40px_rgba(15,23,42,0.06)]">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-4 lg:gap-5">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex min-w-0 items-center justify-between gap-4">
-            <Link to={ROUTES.HOME}>
-              <img
-                src="/assets/ui/navbar_logo.png"
-                alt="Foodzy logo"
-                className="h-10 w-auto sm:h-12"
-              />
+            <Link to={ROUTES.HOME} className="min-w-0">
+              <div className="min-w-0">
+                <p className="truncate text-[10px] font-semibold uppercase tracking-[0.2em] text-red-400 sm:text-[11px] sm:tracking-[0.24em]">
+                  Cocktails Cuisine
+                </p>
+                <p className="truncate text-xs font-semibold text-slate-700 sm:text-sm">
+                  Fresh picks and quick routes
+                </p>
+              </div>
             </Link>
-
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 lg:justify-end">
@@ -75,20 +81,17 @@ const Navbar: React.FC = () => {
                 </button>
               </div>
             ) : (
-              <Link
-                to={ROUTES.LOGIN}
-                className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2.5 text-sm font-medium text-slate-600 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-red-200 hover:bg-red-50 hover:text-red-500"
-              >
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-red-50 text-red-500">
+              <Link to={ROUTES.LOGIN} className={actionLinkClass}>
+                <span className={actionIconClass}>
                   <IoPersonOutline className="text-base" />
                 </span>
-                <span>Account</span>
+                <span className="hidden sm:inline">Account</span>
               </Link>
             )}
 
             <div className="flex items-center gap-2 sm:gap-3">
               <Link to={ROUTES.WISHLIST} className={actionLinkClass}>
-                <div className="relative">
+                <div className={`relative ${actionIconClass}`}>
                   <CiHeart className="text-lg" />
                   {wishlistItems.length > 0 && (
                     <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
@@ -100,7 +103,7 @@ const Navbar: React.FC = () => {
               </Link>
 
               <Link to={ROUTES.CART} className={actionLinkClass}>
-                <div className="relative">
+                <div className={`relative ${actionIconClass}`}>
                   <FiShoppingCart className="text-base" />
                   {cartItems.length > 0 && (
                     <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">

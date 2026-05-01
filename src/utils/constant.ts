@@ -3,6 +3,7 @@ export const ROUTES = {
   PRODUCTS: '/products',
   PRODUCT_DETAILS: '/products/:id',
   LOGIN: '/login',
+  FORGOT_PASSWORD: '/forgot-password',
   SIGNUP: '/signup',
   CART: '/cart',
   WISHLIST: '/wishlist',

@@ -1,24 +1,13 @@
 import React from "react";
-
+import PageBanner from "../components/ui/PageBanner";
 
 const AboutUs: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#fafafa] text-slate-800">
+      <PageBanner title="About Us" />
 
-      {/* Red banner / breadcrumb */}
-      <div className="w-full bg-red-600 text-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 text-sm lg:px-0">
-          <span>About Us</span>
-          <span className="text-xs opacity-90">
-            Home <span className="mx-1">–</span> About Us
-          </span>
-        </div>
-      </div>
-
-      {/* About content */}
       <main className="flex-1">
         <section className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-10 lg:flex-row lg:items-start lg:px-0 lg:py-14">
-          {/* Text */}
           <div className="flex-1">
             <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
               About The Carrot
@@ -46,7 +35,6 @@ const AboutUs: React.FC = () => {
               </p>
             </div>
 
-            {/* Stats card */}
             <div className="mt-5 block bg-gray-100 px-2 py-7 shadow-md shadow-slate-100">
               <div className="grid grid-cols-3 gap-6 ">
                 <div className="flex flex-col items-center">
@@ -77,7 +65,6 @@ const AboutUs: React.FC = () => {
             </div>
           </div>
 
-          {/* Image */}
           <div className="w-full max-w-md">
             <img
               src="/assets/ui/about_pic.png"
@@ -87,7 +74,6 @@ const AboutUs: React.FC = () => {
           </div>
         </section>
 
-        {/* Features */}
         <section className="mx-auto max-w-6xl px-4 pb-14 lg:px-0">
           <div className="grid gap-5 md:grid-cols-4">
             {[
@@ -123,8 +109,6 @@ const AboutUs: React.FC = () => {
           </div>
         </section>
       </main>
-
-
     </div>
   );
 };

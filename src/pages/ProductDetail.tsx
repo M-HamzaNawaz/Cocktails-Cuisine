@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { IoLeafOutline, IoShieldCheckmarkOutline, IoStar, IoTrailSignOutline } from 'react-icons/io5';
+import { CiHeart } from 'react-icons/ci';
+import { FiShoppingBag } from 'react-icons/fi';
+import {
+  IoLeafOutline,
+  IoShieldCheckmarkOutline,
+  IoStar,
+  IoTrailSignOutline,
+} from 'react-icons/io5';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import Wrapper from '../components/container/Wrapper';
@@ -76,11 +83,15 @@ const ProductDetails: React.FC = () => {
     return (
       <Wrapper className="px-4 py-16">
         <div className="rounded-[32px] border border-slate-200 bg-white px-6 py-14 text-center shadow-sm">
-          <h2 className="mb-4 text-2xl font-bold text-slate-800">Product not found</h2>
+          <h2 className="mb-4 text-2xl font-bold text-slate-800">
+            Product not found
+          </h2>
           <p className="mb-8 text-sm text-slate-500">
             The item you opened is not available right now.
           </p>
-          <Button onClick={() => navigate(ROUTES.PRODUCTS)}>Back to Products</Button>
+          <Button onClick={() => navigate(ROUTES.PRODUCTS)}>
+            Back to Products
+          </Button>
         </div>
       </Wrapper>
     );
@@ -145,7 +156,12 @@ const ProductDetails: React.FC = () => {
     },
   ];
 
-  const weightOptionsForProduct = ['50g', '80g', '120g', product.weight ?? '200g'];
+  const weightOptionsForProduct = [
+    '50g',
+    '80g',
+    '120g',
+    product.weight ?? '200g',
+  ];
 
   return (
     <Wrapper className="px-4 py-8 sm:py-10">
@@ -190,7 +206,7 @@ const ProductDetails: React.FC = () => {
         <div className="space-y-8">
           <section className="overflow-hidden rounded-[34px] border border-slate-200 bg-gradient-to-br from-white via-[#fffaf7] to-[#fff5ef] shadow-[0_22px_60px_rgba(15,23,42,0.08)]">
             <div className="grid gap-8 p-5 sm:p-7 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] xl:p-9">
-              <div className="rounded-[26px] border border-slate-200 bg-white p-3 shadow-[0_18px_45px_rgba(15,23,42,0.08)]">
+              <div className="self-start rounded-[26px] border border-slate-200 bg-white p-3 shadow-[0_18px_45px_rgba(15,23,42,0.08)]">
                 <div className="relative overflow-hidden rounded-[22px] border border-slate-200 bg-white">
                   <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
                     <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">
@@ -282,8 +298,12 @@ const ProductDetails: React.FC = () => {
                       key={item.label}
                       className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white/80 px-4 py-3"
                     >
-                      <span className="text-sm font-semibold text-slate-500">{item.label}</span>
-                      <span className="text-sm font-medium text-slate-800">{item.value}</span>
+                      <span className="text-sm font-semibold text-slate-500">
+                        {item.label}
+                      </span>
+                      <span className="text-sm font-medium text-slate-800">
+                        {item.value}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -310,41 +330,45 @@ const ProductDetails: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-                  <div className="inline-flex w-fit items-center overflow-hidden rounded-full border border-slate-200 bg-white shadow-sm">
+                <div className="mt-8 grid gap-4 xl:grid-cols-[auto_minmax(0,1fr)] xl:items-center">
+                  <div className="inline-flex h-[58px] w-fit min-w-[132px] items-center overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                     <button
                       type="button"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="px-5 py-3 text-lg text-slate-600 transition hover:bg-slate-50"
+                      className="flex h-full w-14 items-center justify-center text-xl text-slate-500 transition hover:bg-slate-50 hover:text-red-500"
                     >
                       -
                     </button>
-                    <span className="min-w-[72px] border-x border-slate-200 px-4 py-3 text-center font-semibold text-slate-800">
+                    <span className="flex h-full min-w-[72px] items-center justify-center border-x border-slate-200 px-4 text-center font-semibold text-slate-800">
                       {quantity}
                     </span>
                     <button
                       type="button"
-                      onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
-                      className="px-5 py-3 text-lg text-slate-600 transition hover:bg-slate-50"
+                      onClick={() =>
+                        setQuantity(Math.min(product.stock, quantity + 1))
+                      }
+                      className="flex h-full w-14 items-center justify-center text-xl text-slate-500 transition hover:bg-slate-50 hover:text-red-500"
                     >
                       +
                     </button>
                   </div>
 
-                  <div className="flex flex-1 flex-col gap-3 sm:flex-row">
+                  <div className="grid gap-3 2xl:grid-cols-2">
                     <Button
                       size="lg"
                       onClick={handleAddToCart}
-                      className="flex-1 rounded-full bg-[#ff4c3b] text-base text-white shadow-[0_18px_35px_rgba(255,76,59,0.25)] hover:bg-[#e63f2f]"
+                      className="flex min-h-[58px] w-full items-center justify-center gap-2 rounded-2xl bg-[#ff4c3b] px-6 text-base font-semibold text-white shadow-[0_18px_35px_rgba(255,76,59,0.25)] hover:bg-[#e63f2f] whitespace-nowrap"
                     >
-                      Add To Cart
+                      <FiShoppingBag className="shrink-0 text-lg" />
+                      Cart
                     </Button>
                     <Button
                       size="lg"
                       variant="outline"
                       onClick={handleAddToWishlist}
-                      className="rounded-full border-red-200 px-8 text-base text-red-500 hover:bg-red-50"
+                      className="flex min-h-[58px] w-full items-center justify-center gap-2 rounded-2xl border-red-200 px-6 text-base font-semibold text-red-500 hover:bg-red-50 whitespace-nowrap"
                     >
+                      <CiHeart className="shrink-0 text-xl" />
                       Wishlist
                     </Button>
                   </div>
@@ -365,8 +389,12 @@ const ProductDetails: React.FC = () => {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-xl text-red-500">
                     <Icon />
                   </div>
-                  <h3 className="text-base font-semibold text-slate-800">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-500">{item.text}</p>
+                  <h3 className="text-base font-semibold text-slate-800">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-500">
+                    {item.text}
+                  </p>
                 </div>
               );
             })}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PageBanner from "../components/ui/PageBanner";
 
 const Faq: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -40,34 +41,23 @@ const Faq: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-800">
-      {/* Header Section */}
-      <div className="w-full bg-[#ff4c3b] text-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 text-sm lg:px-0">
-          <span>Faq</span>
-          <span className="text-xs opacity-90">
-            Home <span className="mx-1">–</span>Faq
-          </span>
-        </div>
-      </div>
+      <PageBanner title="Faq" />
 
-      {/* Main Content */}
-      <div className="mx-auto max-w-6xl px-4 py-10 lg:px-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* Image Section */}
-        <div className="w-full p-4 flex-shrink-0">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 py-10 sm:grid-cols-2 lg:px-0">
+        <div className="w-full flex-shrink-0 p-4">
           <img
             src="./assets/Faq/text.png"
             alt="Hotel facilities"
-            className="w-full h-auto rounded-lg shadow-lg object-cover"
+            className="h-auto w-full rounded-lg shadow-lg object-cover"
           />
         </div>
 
-        {/* FAQ Section */}
         <div className="w-full p-4">
           <div className="space-y-6">
             {questions.map((item, index) => (
               <div key={index} className="border-b-2 pb-4">
                 <div
-                  className="text-lg font-semibold cursor-pointer flex justify-between items-center"
+                  className="flex cursor-pointer items-center justify-between text-lg font-semibold"
                   onClick={() => toggleOpen(index)}
                 >
                   <span>{item.question}</span>
@@ -78,7 +68,7 @@ const Faq: React.FC = () => {
                   </span>
                 </div>
                 {openIndex === index && (
-                  <div className="mt-2 text-gray-700 text-sm">
+                  <div className="mt-2 text-sm text-gray-700">
                     {item.answer}
                   </div>
                 )}
