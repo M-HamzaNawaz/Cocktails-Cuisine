@@ -4,6 +4,7 @@ import { useAppDispatch } from '../app/hooks';
 import Card from '../components/ui/Card';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
+import PageBanner from '../components/ui/PageBanner';
 import { signupSuccess } from '../feature/auth/authSlice';
 import {
   signupSchema,
@@ -62,14 +63,7 @@ const Signup: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-800">
-      <div className="w-full bg-[#ff4c3b] text-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 text-sm lg:px-0">
-          <span>Register</span>
-          <span className="text-xs opacity-90">
-            Home <span className="mx-1">-</span> Register
-          </span>
-        </div>
-      </div>
+      <PageBanner title="Register" />
 
       <div className="mx-auto max-w-4xl px-4 py-12">
         <Card>

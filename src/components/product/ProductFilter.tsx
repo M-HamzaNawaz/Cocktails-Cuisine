@@ -17,6 +17,7 @@ interface Props {
   toggleWeight?: (val: string) => void;
   toggleTag?: (val: string) => void;
   setPriceRange?: (nextRange: [number, number]) => void;
+  clearFilters?: () => void;
 }
 
 // ---------- Component ----------
@@ -33,14 +34,26 @@ const ProductFilters: React.FC<Props> = ({
   toggleWeight,
   toggleTag,
   setPriceRange,
+  clearFilters,
 }) => {
+  const safeMaxPrice = Math.max(1, maxPrice);
+  const displayedMaxPrice = Math.min(priceRange[1], safeMaxPrice);
+
   return (
-    <div className="bg-gray-200 rounded-xl p-6 shadow-sm space-y-8">
-      {/* Categories */}
+    <div className="space-y-8 rounded-xl bg-gray-200 p-6 shadow-sm">
       <div className="flex items-center justify-between border-b pb-3">
         <h3 className="text-lg font-semibold text-gray-900">
           Product Category
         </h3>
+        {clearFilters && (
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="text-xs font-semibold uppercase tracking-wide text-red-500 transition hover:text-red-600"
+          >
+            Clear all
+          </button>
+        )}
       </div>
       <div className="space-y-3">
         {categories.map((category) => (
@@ -70,8 +83,8 @@ const ProductFilters: React.FC<Props> = ({
         <input
           type="range"
           min={0}
-          max={maxPrice}
-          value={Math.min(priceRange[1], maxPrice)}
+          max={safeMaxPrice}
+          value={displayedMaxPrice}
           onChange={(e) =>
             setPriceRange && setPriceRange([0, Number.parseInt(e.target.value, 10)])
           }
@@ -80,7 +93,7 @@ const ProductFilters: React.FC<Props> = ({
         <p className="mt-3 font-semibold text-sm">
           Price:{' '}
           <span className="text-gray-600">
-            ${priceRange[0]} - ${priceRange[1]}
+            ${priceRange[0]} - ${displayedMaxPrice}
           </span>
         </p>
       </div>
@@ -92,14 +105,20 @@ const ProductFilters: React.FC<Props> = ({
         </h3>
         <div className="space-y-3">
           {weights.map((weight) => (
-            <label key={weight.label} className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={selectedWeights.includes(weight.label)}
-                onChange={() => toggleWeight && toggleWeight(weight.label)}
-                className="w-4 h-4 accent-red-500"
-              />
-              <span className="text-sm text-gray-700">{weight.label}</span>
+            <label
+              key={weight.label}
+              className="flex cursor-pointer items-center justify-between gap-2"
+            >
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={selectedWeights.includes(weight.label)}
+                  onChange={() => toggleWeight && toggleWeight(weight.label)}
+                  className="w-4 h-4 accent-red-500"
+                />
+                <span className="text-sm text-gray-700">{weight.label}</span>
+              </div>
+              <span className="text-xs text-gray-400">[{weight.count}]</span>
             </label>
           ))}
         </div>
@@ -114,6 +133,7 @@ const ProductFilters: React.FC<Props> = ({
           {tags.map((tag) => (
             <button
               key={tag.label}
+              type="button"
               onClick={() => toggleTag && toggleTag(tag.label)}
               className={`px-3 py-1 text-sm rounded-md border transition ${
                 selectedTags.includes(tag.label)

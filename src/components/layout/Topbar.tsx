@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { CiMenuBurger, CiPhone } from 'react-icons/ci';
 import { IoCloseOutline } from 'react-icons/io5';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import CommonDropdown from '../ui/CommonDropdown';
 import { ROUTES } from '../../utils/constant';
 
@@ -14,6 +14,7 @@ const pageOptions = [
   { label: 'Pages', value: '' },
   { label: 'Login', value: ROUTES.LOGIN },
   { label: 'Register', value: ROUTES.SIGNUP },
+  { label: 'FAQ', value: ROUTES.FAQ },
 ];
 
 const navLinks = [
@@ -48,14 +49,13 @@ const Topbar: FC = () => {
     <div className="border-b border-slate-200 bg-gradient-to-r from-white via-[#fff7f5] to-white">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-3">
         <div className="flex min-w-0 flex-1 items-center gap-3">
-          <div className="min-w-0">
-            <p className="truncate text-[10px] font-semibold uppercase tracking-[0.2em] text-red-400 sm:text-[11px] sm:tracking-[0.24em]">
-              Cocktails Cuisine
-            </p>
-            <p className="truncate text-xs font-semibold text-slate-700 sm:text-sm">
-              Fresh picks and quick routes
-            </p>
-          </div>
+          <Link to={ROUTES.HOME} className="inline-flex min-w-0 items-center">
+            <img
+              src="/assets/ui/logo2.png"
+              alt="Foodzy logo"
+              className="h-12 w-auto sm:h-14"
+            />
+          </Link>
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
@@ -79,14 +79,16 @@ const Topbar: FC = () => {
             options={productOptions}
             defaultValue={productDefaultValue}
             onChange={handleNavigate}
-            className="min-w-[148px] border-red-100 bg-white"
+            className="min-w-[148px]"
+            triggerClassName="border-red-100 bg-[#fff7f5] text-slate-600 hover:bg-red-50 hover:text-red-500"
           />
 
           <CommonDropdown
             options={pageOptions}
             defaultValue={pageDefaultValue}
             onChange={handleNavigate}
-            className="min-w-[132px] border-red-100 bg-white"
+            className="min-w-[132px]"
+            triggerClassName="border-red-100 bg-[#fff7f5] text-slate-600 hover:bg-red-50 hover:text-red-500"
           />
         </div>
 

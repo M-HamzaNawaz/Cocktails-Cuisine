@@ -7,6 +7,8 @@ import { loginSchema } from '../feature/auth/authSchema';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
+import PageBanner from '../components/ui/PageBanner';
+import { ROUTES } from '../utils/constant';
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -48,14 +50,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="flex min-h-screen flex-col gap-14 bg-[#fafafa] text-slate-800">
-      <div className="w-full bg-[#ff4c3b] text-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 text-sm lg:px-0">
-          <span>Login</span>
-          <span className="text-xs opacity-90">
-            Home <span className="mx-1">-</span> Login
-          </span>
-        </div>
-      </div>
+      <PageBanner title="Login" />
 
       <div className="container mx-auto px-4 py-16">
         <div className="mx-auto max-w-md">
@@ -99,7 +94,7 @@ const Login: React.FC = () => {
                   </label>
 
                   <Link
-                    to="/forgot-password"
+                    to={ROUTES.FORGOT_PASSWORD}
                     className="text-sm font-medium text-gray-600 hover:underline"
                   >
                     Forgot password?
@@ -111,7 +106,7 @@ const Login: React.FC = () => {
                     Login
                   </Button>
                   <p className="mt-6 text-center text-gray-600">
-                    <Link to="/signup" className="text-gray-600 hover:underline">
+                    <Link to={ROUTES.SIGNUP} className="text-gray-600 hover:underline">
                       Signup?
                     </Link>
                   </p>

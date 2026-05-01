@@ -2,29 +2,36 @@ import { createSelector } from '@reduxjs/toolkit';
 import type { RootState } from '../../app/store';
 
 const selectProductsState = (state: RootState) => state.products;
+const normalize = (value: string) => value.trim().toLowerCase();
 
 export const selectFilteredProducts = createSelector(
   [selectProductsState],
   ({ products, filters }) => {
-    const normalizedQuery = filters.searchQuery.trim().toLowerCase();
+    const normalizedQuery = normalize(filters.searchQuery);
+    const selectedCategories = filters.selectedCategories.map(normalize);
+    const selectedWeights = filters.selectedWeights.map(normalize);
+    const selectedTags = filters.selectedTags.map(normalize);
 
     const filtered = products.filter((product) => {
+      const normalizedCategory = normalize(product.category);
+      const normalizedWeight = product.weight ? normalize(product.weight) : null;
+      const normalizedTags = product.tags?.map(normalize) ?? [];
       const matchesPrice =
         product.price >= filters.priceRange[0] &&
         product.price <= filters.priceRange[1];
       const matchesCategories =
-        filters.selectedCategories.length === 0 ||
-        filters.selectedCategories.includes(product.category);
+        selectedCategories.length === 0 ||
+        selectedCategories.includes(normalizedCategory);
       const matchesWeights =
-        filters.selectedWeights.length === 0 ||
-        (product.weight ? filters.selectedWeights.includes(product.weight) : false);
+        selectedWeights.length === 0 ||
+        (normalizedWeight ? selectedWeights.includes(normalizedWeight) : false);
       const matchesTags =
-        filters.selectedTags.length === 0 ||
-        filters.selectedTags.some((tag) => product.tags?.includes(tag));
+        selectedTags.length === 0 ||
+        selectedTags.some((tag) => normalizedTags.includes(tag));
       const matchesQuery =
         normalizedQuery.length === 0 ||
-        product.name.toLowerCase().includes(normalizedQuery) ||
-        product.description.toLowerCase().includes(normalizedQuery);
+        normalize(product.name).includes(normalizedQuery) ||
+        normalize(product.description).includes(normalizedQuery);
 
       return (
         matchesPrice &&

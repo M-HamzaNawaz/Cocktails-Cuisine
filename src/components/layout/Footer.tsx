@@ -1,6 +1,10 @@
 import React from 'react';
 import { AiOutlineInstagram } from 'react-icons/ai';
-import { HiOutlineEnvelope, HiOutlineMapPin, HiOutlinePhone } from 'react-icons/hi2';
+import {
+  HiOutlineEnvelope,
+  HiOutlineMapPin,
+  HiOutlinePhone,
+} from 'react-icons/hi2';
 import { IoPaperPlaneSharp } from 'react-icons/io5';
 import { PiGlobe } from 'react-icons/pi';
 import { RiFacebookLine, RiTwitterXLine } from 'react-icons/ri';
@@ -29,7 +33,11 @@ const socialLinks = [
   { label: 'Facebook', href: 'https://facebook.com', icon: RiFacebookLine },
   { label: 'X', href: 'https://x.com', icon: RiTwitterXLine },
   { label: 'Website', href: 'https://foodzy.example.com', icon: PiGlobe },
-  { label: 'Instagram', href: 'https://instagram.com', icon: AiOutlineInstagram },
+  {
+    label: 'Instagram',
+    href: 'https://instagram.com',
+    icon: AiOutlineInstagram,
+  },
 ];
 
 const thumbs = [
@@ -47,12 +55,11 @@ const Footer: React.FC = () => {
         <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-[1.2fr_0.8fr_0.8fr_1fr]">
           <div className="space-y-5 text-sm">
             <div className="space-y-1">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-red-400">
-                Cocktails Cusisine
-              </p>
-              <p className="text-2xl font-bold text-slate-900">
-                Fresh picks and quick routes
-              </p>
+              <img
+                src="/assets/ui/logo2.png"
+                alt="Foodzy logo"
+                className="h-16 w-auto sm:h-20"
+              />
               <p className="text-sm text-slate-500">
                 Built to feel just like the topbar brand across the whole page.
               </p>
@@ -90,7 +97,10 @@ const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-sm text-slate-500">
               {companyLinks.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.to} className="transition-colors hover:text-[#ff4c3b]">
+                  <Link
+                    to={link.to}
+                    className="transition-colors hover:text-[#ff4c3b]"
+                  >
                     {link.label}
                   </Link>
                 </li>
@@ -118,7 +128,8 @@ const Footer: React.FC = () => {
             <div>
               <h2 className="text-base font-bold text-slate-900">Newsletter</h2>
               <p className="mt-2 text-sm leading-6 text-slate-500">
-                Weekly updates, fresh offers, and quick food inspo straight to your inbox.
+                Weekly updates, fresh offers, and quick food inspo straight to
+                your inbox.
               </p>
             </div>
 

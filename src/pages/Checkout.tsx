@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
+import PageBanner from '../components/ui/PageBanner';
 import { clearCart } from '../feature/cart/cartSlice';
 import { checkoutSchema, type CheckoutFormData } from '../schemas/checkoutSchema';
 import { ROUTES } from '../utils/constant';
@@ -73,14 +74,7 @@ const Checkout: React.FC = () => {
 
   return (
     <>
-      <div className="w-full bg-[#ff4c3b] text-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 text-sm lg:px-0">
-          <span>Checkout</span>
-          <span className="text-xs opacity-90">
-            Home <span className="mx-1">-</span> Checkout
-          </span>
-        </div>
-      </div>
+      <PageBanner title="Checkout" />
 
       <div className="min-h-screen py-8">
         <div className="container mx-auto max-w-7xl px-4 py-16 sm:px-8 md:px-12 lg:px-14">
