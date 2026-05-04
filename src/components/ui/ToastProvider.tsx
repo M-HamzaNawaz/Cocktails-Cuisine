@@ -23,8 +23,8 @@ const ToastContext = createContext<ToastContextValue | undefined>(undefined);
 
 const toastStyles: Record<ToastVariant, string> = {
   success:
-    'border-emerald-200 bg-emerald-50 text-emerald-900 shadow-[0_18px_45px_rgba(16,185,129,0.16)]',
-  info: 'border-red-200 bg-red-50 text-slate-800 shadow-[0_18px_45px_rgba(255,76,59,0.14)]',
+    'border-red-100 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(255,250,247,0.98)_100%)] text-slate-700 shadow-[0_14px_34px_rgba(255,76,59,0.12)]',
+  info: 'border-slate-200 bg-white/95 text-slate-700 shadow-[0_14px_34px_rgba(15,23,42,0.08)]',
 };
 
 const toastIcons = {
@@ -57,26 +57,34 @@ export const ToastProvider: React.FC<React.PropsWithChildren> = ({
     <ToastContext.Provider value={value}>
       {children}
 
-      <div className="pointer-events-none fixed right-4 top-4 z-[100] flex w-[min(92vw,360px)] flex-col gap-3">
+      <div className="pointer-events-none fixed right-3 top-3 z-[100] flex w-[min(90vw,300px)] flex-col gap-2">
         {toasts.map((toast) => {
           const Icon = toastIcons[toast.variant];
+          const iconClass =
+            toast.variant === 'success'
+              ? 'bg-red-50 text-red-500 ring-1 ring-red-100'
+              : 'bg-slate-100 text-slate-500 ring-1 ring-slate-200';
 
           return (
             <div
               key={toast.id}
-              className={`pointer-events-auto flex items-start gap-3 rounded-2xl border px-4 py-3 backdrop-blur ${toastStyles[toast.variant]}`}
+              className={`pointer-events-auto flex items-center gap-2.5 rounded-2xl border px-3 py-2.5 backdrop-blur ${toastStyles[toast.variant]}`}
               role="status"
               aria-live="polite"
             >
-              <Icon className="mt-0.5 shrink-0 text-lg" />
-              <p className="flex-1 text-sm font-medium leading-6">{toast.message}</p>
+              <span
+                className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${iconClass}`}
+              >
+                <Icon className="text-sm" />
+              </span>
+              <p className="flex-1 text-xs font-medium leading-5">{toast.message}</p>
               <button
                 type="button"
                 onClick={() => dismissToast(toast.id)}
-                className="rounded-full p-1 text-slate-400 transition hover:bg-white/70 hover:text-slate-600"
+                className="rounded-full p-1 text-slate-300 transition hover:bg-slate-100 hover:text-slate-500"
                 aria-label="Dismiss notification"
               >
-                <FiX className="text-sm" />
+                <FiX className="text-xs" />
               </button>
             </div>
           );
