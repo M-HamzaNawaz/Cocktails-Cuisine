@@ -14,6 +14,7 @@ import ProductFilters from '../components/product/ProductFilter';
 import ProductTabs from '../components/product/ProductTabs';
 import Button from '../components/ui/Button';
 import PopularProductsSection from '../components/ui/PopularProducts';
+import { useToast } from '../components/ui/ToastProvider';
 import { addToCart } from '../feature/cart/cartSlice';
 import {
   fetchProductById,
@@ -25,12 +26,13 @@ import {
 } from '../feature/product/productsSlice';
 import { addToWishlist } from '../feature/wishlist/wishlistSlice';
 import { buildProductFilterOptions } from '../utils/buildProductFilterOptions';
-import { ROUTES } from '../utils/constant';
+import { ROUTES, SUCCESS_MESSAGES } from '../utils/constant';
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { showToast } = useToast();
   const { products, selectedProduct, loading, filters } = useAppSelector(
     (state) => state.products,
   );
@@ -100,10 +102,14 @@ const ProductDetails: React.FC = () => {
   const handleAddToCart = () => {
     const clampedQuantity = Math.min(product.stock, Math.max(1, quantity));
     dispatch(addToCart({ product, quantity: clampedQuantity }));
+    showToast(`${product.name} ${SUCCESS_MESSAGES.PRODUCT_ADDED_TO_CART.toLowerCase()}`);
   };
 
   const handleAddToWishlist = () => {
     dispatch(addToWishlist(product));
+    showToast(
+      `${product.name} ${SUCCESS_MESSAGES.PRODUCT_ADDED_TO_WISHLIST.toLowerCase()}`,
+    );
   };
 
   const openFilteredProducts = () => {

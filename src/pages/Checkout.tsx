@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import PageBanner from '../components/ui/PageBanner';
+import { useToast } from '../components/ui/ToastProvider';
 import { clearCart } from '../feature/cart/cartSlice';
 import { checkoutSchema, type CheckoutFormData } from '../schemas/checkoutSchema';
-import { ROUTES } from '../utils/constant';
+import { ROUTES, SUCCESS_MESSAGES } from '../utils/constant';
 
 const initialFormData: CheckoutFormData = {
   firstName: '',
@@ -21,6 +22,7 @@ const initialFormData: CheckoutFormData = {
 const Checkout: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { showToast } = useToast();
   const { items, total } = useAppSelector((state) => state.cart);
 
   const [deliveryMethod, setDeliveryMethod] = useState<'free' | 'flat'>('free');
@@ -51,7 +53,7 @@ const Checkout: React.FC = () => {
 
     try {
       checkoutSchema.parse(formData);
-      alert('Order placed successfully! This is a demo.');
+      showToast(SUCCESS_MESSAGES.ORDER_PLACED);
       dispatch(clearCart());
       navigate(ROUTES.HOME);
     } catch (error: unknown) {

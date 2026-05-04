@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import { addToCart } from '../../feature/cart/cartSlice';
+import { useToast } from '../ui/ToastProvider';
 import { IoMdArrowForward } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import { LuShoppingCart } from 'react-icons/lu';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import { IoIosArrowRoundForward } from 'react-icons/io';
+import { SUCCESS_MESSAGES } from '../../utils/constant';
 
 interface Product {
   id: string;
@@ -22,6 +24,7 @@ interface Product {
 
 const DailyBestSells: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { showToast } = useToast();
   const [activeTab, setActiveTab] = useState<'featured' | 'popular' | 'new'>(
     'featured',
   );
@@ -94,6 +97,7 @@ const DailyBestSells: React.FC = () => {
       stock: product.totalStock,
     };
     dispatch(addToCart({ product: cartItem }));
+    showToast(`${product.name} ${SUCCESS_MESSAGES.PRODUCT_ADDED_TO_CART.toLowerCase()}`);
   };
 
   const getBadgeColor = (badge: string) => {

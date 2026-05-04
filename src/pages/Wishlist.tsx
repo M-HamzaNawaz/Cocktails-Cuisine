@@ -5,18 +5,29 @@ import { removeFromWishlist } from '../feature/wishlist/wishlistSlice';
 import { addToCart } from '../feature/cart/cartSlice';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
+import { useToast } from '../components/ui/ToastProvider';
+import { SUCCESS_MESSAGES } from '../utils/constant';
 
 const Wishlist: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { showToast } = useToast();
   const wishlistItems = useAppSelector((state) => state.wishlist.items);
 
   const handleRemove = (id: string) => {
+    const removedItem = wishlistItems.find((item) => item.id === id);
     dispatch(removeFromWishlist(id));
+    if (removedItem) {
+      showToast(
+        `${removedItem.name} ${SUCCESS_MESSAGES.PRODUCT_REMOVED_FROM_WISHLIST.toLowerCase()}`,
+        'info',
+      );
+    }
   };
 
   const handleAddToCart = (product: (typeof wishlistItems)[0]) => {
     dispatch(addToCart({ product }));
     dispatch(removeFromWishlist(product.id));
+    showToast(`${product.name} ${SUCCESS_MESSAGES.PRODUCT_MOVED_TO_CART.toLowerCase()}`);
   };
 
   if (wishlistItems.length === 0) {

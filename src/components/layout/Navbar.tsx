@@ -6,11 +6,13 @@ import { IoPersonOutline } from 'react-icons/io5';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { logout } from '../../feature/auth/authSlice';
 import { setSearchQuery } from '../../feature/product/productsSlice';
-import { ROUTES } from '../../utils/constant';
+import { useToast } from '../ui/ToastProvider';
+import { ROUTES, SUCCESS_MESSAGES } from '../../utils/constant';
 
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
   const cartItems = useAppSelector((state) =>
     Array.isArray(state.cart.items) ? state.cart.items : [],
@@ -27,6 +29,7 @@ const Navbar: React.FC = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    showToast(SUCCESS_MESSAGES.LOGOUT_SUCCESS, 'info');
   };
 
   const handleSearch = () => {

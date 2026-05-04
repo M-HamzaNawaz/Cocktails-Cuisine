@@ -7,6 +7,7 @@ import ProductFilters from '../components/product/ProductFilter';
 import Pagination from '../components/product/Pagination';
 import ProductCard from '../components/product/ProductCard';
 import PageBanner from '../components/ui/PageBanner';
+import { useToast } from '../components/ui/ToastProvider';
 import { addToCart } from '../feature/cart/cartSlice';
 import { selectFilteredProducts } from '../feature/product/productSelectors';
 import {
@@ -20,9 +21,11 @@ import {
 } from '../feature/product/productsSlice';
 import type { Product as ProductType } from '../types/product';
 import { buildProductFilterOptions } from '../utils/buildProductFilterOptions';
+import { SUCCESS_MESSAGES } from '../utils/constant';
 
 const Product: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { showToast } = useToast();
   const [searchParams] = useSearchParams();
   const { products, loading, filters } = useAppSelector((state) => state.products);
   const filteredProducts = useAppSelector(selectFilteredProducts);
@@ -98,6 +101,7 @@ const Product: React.FC = () => {
 
   const handleAddToCart = (product: ProductType) => {
     dispatch(addToCart({ product }));
+    showToast(`${product.name} ${SUCCESS_MESSAGES.PRODUCT_ADDED_TO_CART.toLowerCase()}`);
   };
 
   return (

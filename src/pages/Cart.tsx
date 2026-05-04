@@ -7,6 +7,8 @@ import Button from '../components/ui/Button';
 import PopularProducts from '../components/ui/PopularProducts';
 import Wrapper from '../components/container/Wrapper';
 import PageBanner from '../components/ui/PageBanner';
+import { useToast } from '../components/ui/ToastProvider';
+import { SUCCESS_MESSAGES } from '../utils/constant';
 
 const money = (n: number) => `$${Number(n).toFixed(2)}`;
 
@@ -15,9 +17,20 @@ const money = (n: number) => `$${Number(n).toFixed(2)}`;
 const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const { items } = useAppSelector((state) => state.cart);
 
-  const handleRemove = (id: string) => dispatch(removeFromCart(id));
+  const handleRemove = (id: string) => {
+    const removedItem = items.find((item) => item.id === id);
+    dispatch(removeFromCart(id));
+
+    if (removedItem) {
+      showToast(
+        `${removedItem.name} ${SUCCESS_MESSAGES.PRODUCT_REMOVED_FROM_CART.toLowerCase()}`,
+        'info',
+      );
+    }
+  };
 
   const setQty = (id: string, quantity: number) => {
     dispatch(updateQuantity({ id, quantity }));
