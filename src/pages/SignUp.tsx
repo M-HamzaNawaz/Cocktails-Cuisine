@@ -5,11 +5,13 @@ import Card from '../components/ui/Card';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import PageBanner from '../components/ui/PageBanner';
+import { useToast } from '../components/ui/ToastProvider';
 import { signupSuccess } from '../feature/auth/authSlice';
 import {
   signupSchema,
   type SignupFormData,
 } from '../feature/auth/authSchema';
+import { SUCCESS_MESSAGES } from '../utils/constant';
 
 const initialFormData: SignupFormData = {
   firstName: '',
@@ -26,6 +28,7 @@ const initialFormData: SignupFormData = {
 const Signup: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const [formData, setFormData] = useState<SignupFormData>(initialFormData);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -46,6 +49,7 @@ const Signup: React.FC = () => {
       };
 
       dispatch(signupSuccess(user));
+      showToast(SUCCESS_MESSAGES.SIGNUP_SUCCESS);
       navigate('/');
     } catch (error: unknown) {
       const fieldErrors: Record<string, string> = {};

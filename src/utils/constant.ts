@@ -34,4 +34,9 @@ export const SUCCESS_MESSAGES = {
   SIGNUP_SUCCESS: 'Account created successfully',
   PRODUCT_ADDED_TO_CART: 'Product added to cart',
   PRODUCT_ADDED_TO_WISHLIST: 'Product added to wishlist',
+  PRODUCT_REMOVED_FROM_CART: 'Product removed from cart',
+  PRODUCT_REMOVED_FROM_WISHLIST: 'Product removed from wishlist',
+  PRODUCT_MOVED_TO_CART: 'Product moved to cart',
+  LOGOUT_SUCCESS: 'Successfully logged out',
+  ORDER_PLACED: 'Order placed successfully',
 } as const;

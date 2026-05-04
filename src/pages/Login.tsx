@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ZodError } from 'zod';
 import { useAppDispatch } from '../app/hooks';
 import { loginSuccess } from '../feature/auth/authSlice';
@@ -8,13 +8,19 @@ import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import PageBanner from '../components/ui/PageBanner';
+import { useToast } from '../components/ui/ToastProvider';
 import { ROUTES } from '../utils/constant';
+import { SUCCESS_MESSAGES } from '../utils/constant';
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { showToast } = useToast();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const redirectTo =
+    typeof location.state?.from === 'string' ? location.state.from : ROUTES.HOME;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,7 +40,8 @@ const Login: React.FC = () => {
       };
 
       dispatch(loginSuccess(user));
-      navigate('/');
+      showToast(SUCCESS_MESSAGES.LOGIN_SUCCESS);
+      navigate(redirectTo, { replace: true });
     } catch (error) {
       const fieldErrors: Record<string, string> = {};
 

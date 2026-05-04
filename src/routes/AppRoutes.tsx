@@ -12,6 +12,7 @@ import Checkout from '../pages/Checkout';
 import Blog from '../pages/Blog';
 import Faq from '../pages/Faq';
 import About from '../pages/About';
+import ProtectedRoute from './ProtectedRoute';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -23,8 +24,10 @@ const AppRoutes: React.FC = () => {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/cart" element={<Cart />} />
-      <Route path="/wishlist" element={<Wishlist />} />
-      <Route path="/checkout" element={<Checkout />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/checkout" element={<Checkout />} />
+      </Route>
       <Route path="/blog" element={<Blog />} />
       <Route path="/faq" element={<Faq />} />
       <Route path="/about" element={<About />} />

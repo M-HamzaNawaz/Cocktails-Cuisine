@@ -1,7 +1,9 @@
 import React from 'react';
 import { FiShoppingBag } from 'react-icons/fi';
 import { useAppDispatch } from '../../app/hooks';
+import { useToast } from './ToastProvider';
 import { addToCart } from '../../feature/cart/cartSlice';
+import { SUCCESS_MESSAGES } from '../../utils/constant';
 
 const money = (n: number) => `$${Number(n).toFixed(2)}`;
 
@@ -22,6 +24,7 @@ interface PopularDeals {
 
 const PopularProductsSection: React.FC<PopularDeals> = ({ populars }) => {
   const dispatch = useAppDispatch();
+  const { showToast } = useToast();
 
   const popularProducts: Popular[] = [
     {
@@ -80,6 +83,7 @@ const PopularProductsSection: React.FC<PopularDeals> = ({ populars }) => {
       stock: 100,
     };
     dispatch(addToCart({ product: cartItem }));
+    showToast(`${popular.name} ${SUCCESS_MESSAGES.PRODUCT_ADDED_TO_CART.toLowerCase()}`);
   };
 
   return (

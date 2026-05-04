@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../app/hooks';
 import { addToCart } from '../../feature/cart/cartSlice';
 import { LuShoppingCart } from 'react-icons/lu';
+import { useToast } from '../ui/ToastProvider';
+import { SUCCESS_MESSAGES } from '../../utils/constant';
 
 interface Deal {
   id: string;
@@ -22,6 +24,7 @@ interface DealsOfTheDayProps {
 
 const DealsOfTheDay: React.FC<DealsOfTheDayProps> = ({ deals }) => {
   const dispatch = useAppDispatch();
+  const { showToast } = useToast();
 
   // Default deals data
   const defaultDeals: Deal[] = [
@@ -85,6 +88,7 @@ const DealsOfTheDay: React.FC<DealsOfTheDayProps> = ({ deals }) => {
       stock: 100,
     };
     dispatch(addToCart({ product: cartItem }));
+    showToast(`${deal.name} ${SUCCESS_MESSAGES.PRODUCT_ADDED_TO_CART.toLowerCase()}`);
   };
 
   return (
